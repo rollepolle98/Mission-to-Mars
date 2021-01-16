@@ -35,3 +35,8 @@ So taking a look below we can see that the website was succesful able to scrape 
 
 
 ![](Analysis/Fully.png)
+
+
+## Conclusions
+
+All in all, the website serves its function, it makes it possible to scrape images and information and store it all in one click. 
