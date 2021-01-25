@@ -12,7 +12,7 @@ Below you can see some of the actual code , but to further explain ; splinter wa
 ![](Analysis/Code1.png)
 
 
-![](Analysis/Code 2.png)
+![](Analysis/Code2.png)
 
 # Results and Analysis
 
