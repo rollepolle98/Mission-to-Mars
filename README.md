@@ -8,12 +8,35 @@ Some of the technologies / programs that were used are Mongo Database, Beautiful
 
 Below you can see some of the actual code , but to further explain ; splinter was used to navigate the nasa.gov site which then transitioned into the scraping.py file which used beautiful soup to scrape from the actual html which returned the output data.
 
+
+![](Analysis/Code1.png)
+
+
+![](Analysis/Code2.png)
+
 # Results and Analysis
 
 So taking a look below we can see that the website was succesful able to scrape :
 
 * Facts about mars and the actual statistics of different measurments 
 
+
+![](Analysis/MarsFacts1.png)
+
+
+![](Analysis/MarsFacts2.png)
+
 * Search results of four hemispheres of mars
 
+
+![](Analysis/4Hemis.png)
+
 * Pulls up full size images of the hemispheres
+
+
+![](Analysis/Fully.png)
+
+
+## Conclusions
+
+All in all, the website serves its function, it makes it possible to scrape images and information and store it all in one click. 
