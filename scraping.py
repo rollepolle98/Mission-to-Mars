@@ -1,4 +1,4 @@
-# Import Dependeincies
+# Import Dependencies for this module
 from splinter import Browser
 from bs4 import BeautifulSoup as soup
 import pandas as pd
@@ -84,7 +84,7 @@ def featured_image(browser):
     
     return img_url
 
-# ## Mars Facts
+ ## Mars Facts
 def mars_facts():
     # Add try/except for error handling
     try:
@@ -101,7 +101,7 @@ def mars_facts():
     # Convert dataframe into HTML format, add bootstrap
     return df.to_html()
 
-# ## Hemispheres images
+ ## Hemispheres images
 def hemispheres(browser):
     # 1. Use browser to visit the URL
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
@@ -117,10 +117,9 @@ def hemispheres(browser):
     hemi_titles = hemi_soup.find_all('h3')
     for title in hemi_titles:
         
-        #hemi_soup = soup(html, 'html.parser')
-        #print(title.text)
+     
         
-        # Find title and click link to image
+        # Find title and click link to image for this part
         hemi_image_elem = browser.links.find_by_partial_text(title.text)
         hemi_image_elem.click()
 
@@ -128,11 +127,11 @@ def hemispheres(browser):
         html = browser.html
         hemi_soup = soup(html, 'html.parser')
         
-        # Find the relative image url
+        # Find the relative image url for the pictures
         hemi_url_rel = hemi_soup.find('img', class_='wide-image').get('src')
         hemi_url = f'https://astrogeology.usgs.gov/{hemi_url_rel}'
         
-        # Create dictionary
+        # Create dictionary for the code
         hemis = {'img_url':hemi_url, 'title':title.text}
         
         # Add dictionary to list
