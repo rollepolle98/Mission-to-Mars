@@ -1,4 +1,4 @@
-# Import Dependeincies
+# Import Dependencies for this module : Splinter, BeautifulSoup, and Pandas
 from splinter import Browser
 from bs4 import BeautifulSoup as soup
 import pandas as pd
@@ -84,7 +84,7 @@ def featured_image(browser):
     
     return img_url
 
-# ## Mars Facts
+ ## Mars Facts
 def mars_facts():
     # Add try/except for error handling
     try:
@@ -101,47 +101,52 @@ def mars_facts():
     # Convert dataframe into HTML format, add bootstrap
     return df.to_html()
 
-# ## Hemispheres images
-def hemispheres(browser):
-    # 1. Use browser to visit the URL
+def title_url(browser):
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(url)
 
-    # 2. Create a list to hold the images and titles.
+    # Create a list to hold the images and titles.
     hemisphere_image_urls = []
 
-    # 3. Write code to retrieve the image urls and titles for each hemisphere.
+    # Write code to retrieve the image urls and titles for each hemisphere.
     html = browser.html
-    hemi_soup = soup(html, 'html.parser')
+    hemi_image = soup(html, 'html.parser')
 
-    hemi_titles = hemi_soup.find_all('h3')
-    for title in hemi_titles:
+    # Create a for loop find all div's matching the class "item" from hemi_image
+    for item in hemi_image.find_all("div", class_="item"):
         
-        #hemi_soup = soup(html, 'html.parser')
-        #print(title.text)
+        #Create a dictionary to hold the hemisphere photos.
+        hemispheres= {}
         
-        # Find title and click link to image
-        hemi_image_elem = browser.links.find_by_partial_text(title.text)
-        hemi_image_elem.click()
-
+        #Get the thumbnail text from the heading 3 HTML tag
+        thumb_nail = item.select_one('h3').get_text()
         
+        # Find all href attributes for <a> tags with the class "itemLink product-item" 
+        # and assign them to a variable.
+        link = item.find('a', class_='itemLink product-item')['href']
+        
+        #Visit the link using Splinter
+        browser.visit(f'https://astrogeology.usgs.gov{link}')
+        
+        # Get the html from the new link
         html = browser.html
-        hemi_soup = soup(html, 'html.parser')
         
-        # Find the relative image url
-        hemi_url_rel = hemi_soup.find('img', class_='wide-image').get('src')
-        hemi_url = f'https://astrogeology.usgs.gov/{hemi_url_rel}'
+        # Put the html into a beautiful soup
+        mysoup = soup(html, 'html.parser')
         
-        # Create dictionary
-        hemis = {'img_url':hemi_url, 'title':title.text}
+        #Find all div tags with the parent class holding the img
+        downloads_img = mysoup.find('div', class_='downloads')
         
-        # Add dictionary to list
-        hemisphere_image_urls.append(hemis)
+        # Get the href attributes of the  image jpg
+        img_url = downloads_img.find('a')['href']
         
-        # Back to search page
-        browser.back()
+        # Assign the values to our hemisphere dictionary.
+        hemispheres['title']= thumb_nail
+        hemispheres['url']= img_url
+        
+        #Append the dictionary to hisphere_image_urls
+        hemisphere_image_urls.append(hemispheres)
 
-    # 4. Print the list that holds the dictionary of each image url and title.
     return hemisphere_image_urls
 
 
