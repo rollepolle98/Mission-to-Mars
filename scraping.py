@@ -17,7 +17,7 @@ def scrape_all():
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
         "last_modified": dt.datetime.now(),
-        "hemispheres": hemispheres(browser)
+        "hemispheres": hemisphere_image_urls(browser)
     }
 
     # Stop webdriver and return data
@@ -50,7 +50,7 @@ def mars_news(browser):
     except AttributeError:
         return None, None
 
-    return news_title, news_p
+    return news_title, news_p, featured_image
 
 # ## JPL Space Images Featured Image
 
